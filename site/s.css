@@ -1,0 +1,55 @@
+body {
+  font-family: Georgia, serif;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 auto;
+}
+
+.quoted {
+  background: lightskyblue;
+}
+
+@media (min-width: 375px) and (max-width: 559px) {
+  ul {
+    width: 344px;
+  }
+
+  .countdown {
+    top: 18px;
+  }
+}
+
+@media (min-width: 560px) {
+  ul {
+    font-size: 24px;
+    width: 528px;
+  }
+
+  .countdown {
+    top: 27px;
+  }
+}
+
+.stats {
+  text-align: center;
+}
+
+hr {
+  color: #eee;
+}
+
+.countdown {
+  font-family: sans-serif;
+  position: relative;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table td {
+  border: 1px solid black;
+}
