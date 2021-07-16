@@ -9,7 +9,12 @@
     "sourceType": "module"
   },
   "rules": {
+    "arrow-body-style": ["error", "as-needed"],
     "no-var": "error",
+    "prefer-arrow-callback": "error",
+    "prefer-reflect": "error",
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
     "prefer-template": "error"
   }
 }

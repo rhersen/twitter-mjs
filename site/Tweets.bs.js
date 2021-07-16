@@ -17,7 +17,7 @@ function fetchAndShowTweets(id_str, tweets) {
     tweets.insertAdjacentHTML(
       "afterbegin",
       `<table>${Object.keys(users)
-        .map(function (param) {
+        .map((param) => {
           let tweetCount = users[param];
           if (tweetCount > 4) {
             return `<tr><td>${param}</td><td>${tweetCount}</td></tr>`;
@@ -36,9 +36,9 @@ function fetchAndShowTweets(id_str, tweets) {
       return __x.then(handleJson);
     }
     let __x$1 = tweetResp.text();
-    return __x$1.then(function (s) {
-      return Promise.resolve(Status.set(`twitter GET error: ${s}`));
-    });
+    return __x$1.then((s) =>
+      Promise.resolve(Status.set(`twitter GET error: ${s}`))
+    );
   };
   let __x = since(id_str);
   return __x.then(handleFetch);

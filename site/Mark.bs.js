@@ -10,16 +10,16 @@ function mark(id_str) {
   let tweets = document.getElementById("tweets");
   tweets.innerHTML = "";
   let __x = Tweets.fetchAndShowTweets(id_str, tweets);
-  return __x.then(function () {
+  return __x.then(() => {
     Status.set("fauna PUT");
     let __x = put(id_str);
-    return __x.then(function (faunaResp) {
+    return __x.then((faunaResp) => {
       let __x = faunaResp.text();
-      return __x.then(function (text) {
-        return Promise.resolve(
+      return __x.then((text) =>
+        Promise.resolve(
           Status.set(faunaResp.ok ? "fauna PUT OK" : `fauna PUT error: ${text}`)
-        );
-      });
+        )
+      );
     });
   });
 }
