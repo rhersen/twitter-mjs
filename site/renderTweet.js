@@ -1,4 +1,4 @@
-function renderTweet(tweet) {
+export default (tweet) => {
   const getImages = function (d) {
     const isPhoto = function (img) {
       if (img.type === "photo" || img.type === "video") {
@@ -97,6 +97,4 @@ function renderTweet(tweet) {
   const images = `<div>${image}</div>`;
   const quote = getQuote(t);
   return `<li>${a}${i}${b} ${text} ${quote} ${images}</li>`;
-}
-
-export { renderTweet };
+};

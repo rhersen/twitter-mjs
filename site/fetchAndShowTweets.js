@@ -1,4 +1,4 @@
-import * as Tweet from "./Tweet.bs.js";
+import renderTweet from "./renderTweet.js";
 import getUsers from "./getUsers.js";
 import setStatus from "./setStatus.js";
 
@@ -7,7 +7,7 @@ export default (id_str, tweets) => {
   const handleJson = function (tweetJson) {
     const users = getUsers(tweetJson);
     const renderTweets = function (tweet, i) {
-      tweets.insertAdjacentHTML("afterbegin", Tweet.renderTweet(tweet));
+      tweets.insertAdjacentHTML("afterbegin", renderTweet(tweet));
       return tweets.insertAdjacentHTML(
         "afterbegin",
         `<div class="stats"><span class="countdown" onclick='mark("${tweet.id_str}")'>${i}</span><hr /></div>`
