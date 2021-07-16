@@ -3,18 +3,15 @@ import getUsers from "./getUsers.js";
 import setStatus from "./setStatus.js";
 
 export default async (id_str, tweets) => {
-  const since = (s) => fetch(`/.netlify/functions/twitter?since_id=${s}`);
+  const tweetResp = await since(id_str);
+  return handleFetch(tweetResp);
+
+  function since(s) {
+    return fetch(`/.netlify/functions/twitter?since_id=${s}`);
+  }
 
   function handleJson(tweetJson) {
     const users = getUsers(tweetJson);
-
-    function renderTweets(tweet, i) {
-      tweets.insertAdjacentHTML("afterbegin", renderTweet(tweet));
-      return tweets.insertAdjacentHTML(
-        "afterbegin",
-        `<div class="stats"><span class="countdown" onclick='mark("${tweet.id_str}")'>${i}</span><hr /></div>`
-      );
-    }
 
     tweetJson.forEach(renderTweets);
     tweets.insertAdjacentHTML(
@@ -31,6 +28,14 @@ export default async (id_str, tweets) => {
         .join("")}</table>`
     );
     return Promise.resolve(setStatus("twitter GET OK"));
+
+    function renderTweets(tweet, i) {
+      tweets.insertAdjacentHTML("afterbegin", renderTweet(tweet));
+      return tweets.insertAdjacentHTML(
+        "afterbegin",
+        `<div class="stats"><span class="countdown" onclick='mark("${tweet.id_str}")'>${i}</span><hr /></div>`
+      );
+    }
   }
 
   async function handleFetch(tweetResp) {
@@ -42,7 +47,4 @@ export default async (id_str, tweets) => {
     const s = await tweetResp.text();
     setStatus(`twitter GET error: ${s}`);
   }
-
-  const tweetResp = await since(id_str);
-  return handleFetch(tweetResp);
 };
