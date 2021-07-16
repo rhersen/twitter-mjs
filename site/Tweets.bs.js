@@ -5,10 +5,10 @@ import * as Users from "./Users.bs.js";
 import * as Status from "./Status.bs.js";
 
 function fetchAndShowTweets(id_str, tweets) {
-  var since = (s) => fetch("/.netlify/functions/twitter?since_id=" + s);
-  var handleJson = function (tweetJson) {
-    var users = Users.getUsers(tweetJson);
-    var renderTweets = function (tweet, i) {
+  let since = (s) => fetch("/.netlify/functions/twitter?since_id=" + s);
+  let handleJson = function (tweetJson) {
+    let users = Users.getUsers(tweetJson);
+    let renderTweets = function (tweet, i) {
       tweets.insertAdjacentHTML("afterbegin", Tweet.renderTweet(tweet));
       return tweets.insertAdjacentHTML(
         "afterbegin",
@@ -23,7 +23,7 @@ function fetchAndShowTweets(id_str, tweets) {
       "<table>" +
         Object.keys(users)
           .map(function (param) {
-            var tweetCount = users[param];
+            let tweetCount = users[param];
             if (tweetCount > 4) {
               return (
                 "<tr><td>" + param + "</td><td>" + tweetCount + "</td></tr>"
@@ -37,18 +37,18 @@ function fetchAndShowTweets(id_str, tweets) {
     );
     return Promise.resolve(Status.set("twitter GET OK"));
   };
-  var handleFetch = function (tweetResp) {
+  let handleFetch = function (tweetResp) {
     if (tweetResp.ok) {
       Status.set("insertAdjacentHTML");
-      var __x = tweetResp.json();
+      let __x = tweetResp.json();
       return __x.then(handleJson);
     }
-    var __x$1 = tweetResp.text();
+    let __x$1 = tweetResp.text();
     return __x$1.then(function (s) {
       return Promise.resolve(Status.set("twitter GET error: " + s));
     });
   };
-  var __x = since(id_str);
+  let __x = since(id_str);
   return __x.then(handleFetch);
 }
 
