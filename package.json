@@ -4,14 +4,18 @@
   "description": "",
   "main": "site/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo \"Just deploy 'site'\" && exit 0"
+    "test": "prettier --check .",
+    "build": "echo \"Just deploy 'site'\" && exit 0",
+    "dev": "netlify dev"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "faunadb": "^4.3.0",
-    "netlify-cli": "^4.4.1",
     "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "netlify-cli": "^4.4.2",
+    "prettier": "^2.3.2"
   }
 }
