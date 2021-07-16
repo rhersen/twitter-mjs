@@ -1,6 +1,7 @@
 import renderTweet from "./renderTweet.js";
 import getUsers from "./getUsers.js";
 import setStatus from "./setStatus.js";
+import mark from "./mark.js";
 
 export default async (id_str, tweets) => {
   return handleFetch(await since(id_str));
@@ -30,10 +31,15 @@ export default async (id_str, tweets) => {
 
     function renderTweets(tweet, i) {
       tweets.insertAdjacentHTML("afterbegin", renderTweet(tweet));
-      return tweets.insertAdjacentHTML(
+      tweets.insertAdjacentHTML(
         "afterbegin",
         `<div class="stats"><span class="countdown" onclick='mark("${tweet.id_str}")'>${i}</span><hr /></div>`
       );
+      tweets
+        .querySelectorAll(":first-child .countdown")
+        .forEach((countdown) => {
+          countdown.onclick = mark(tweet.id_str);
+        });
     }
   }
 

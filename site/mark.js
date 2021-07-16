@@ -4,7 +4,7 @@ import fetchAndShowTweets from "./fetchAndShowTweets.js";
 const put = (id_str) =>
   fetch("/.netlify/functions/fauna", { method: "PUT", body: id_str });
 
-export default async function mark(id_str) {
+export default (id_str) => async () => {
   console.log(`mark${id_str}`);
   setStatus("twitter GET");
   const tweets = document.getElementById("tweets");
@@ -15,4 +15,4 @@ export default async function mark(id_str) {
   setStatus(
     faunaResp.ok ? "fauna PUT OK" : `fauna PUT error: ${await faunaResp.text()}`
   );
-}
+};
