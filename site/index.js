@@ -1,6 +1,5 @@
 import fetchAndShowTweets from "./fetchAndShowTweets.js";
 import setStatus from "./setStatus.js";
-import mark from "./mark.js";
 
 setStatus("fauna GET");
 fetch(`/.netlify/functions/fauna`).then(async (faunaResp) => {
@@ -17,5 +16,3 @@ fetch(`/.netlify/functions/fauna`).then(async (faunaResp) => {
     }
   }
 });
-
-window.mark = mark;
