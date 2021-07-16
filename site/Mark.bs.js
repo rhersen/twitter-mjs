@@ -12,7 +12,7 @@ function mark(id_str) {
   var tweets = document.getElementById("tweets");
   tweets.innerHTML = "";
   var __x = Tweets.fetchAndShowTweets(id_str, tweets);
-  return __x.then(function (param) {
+  return __x.then(function () {
     Status.set("fauna PUT");
     var __x = put(id_str);
     return __x.then(function (faunaResp) {

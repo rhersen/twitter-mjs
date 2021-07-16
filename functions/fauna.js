@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const faunadb = require("faunadb");
 
 const q = faunadb.query;
