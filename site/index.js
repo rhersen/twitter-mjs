@@ -1,6 +1,6 @@
 import fetchAndShowTweets from "./fetchAndShowTweets.js";
 import setStatus from "./setStatus.js";
-import { mark } from "./Mark.bs.js";
+import mark from "./mark.js";
 
 setStatus("fauna GET");
 fetch(`/.netlify/functions/fauna`).then((faunaResp) => {

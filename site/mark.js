@@ -4,7 +4,7 @@ import fetchAndShowTweets from "./fetchAndShowTweets.js";
 const put = (id_str) =>
   fetch("/.netlify/functions/fauna", { method: "PUT", body: id_str });
 
-function mark(id_str) {
+export default function mark(id_str) {
   console.log(`mark${id_str}`);
   setStatus("twitter GET");
   const tweets = document.getElementById("tweets");
@@ -24,5 +24,3 @@ function mark(id_str) {
     );
   });
 }
-
-export { put, mark };
