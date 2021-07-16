@@ -1,20 +1,20 @@
 import * as Status from "./Status.bs.js";
 import * as Tweets from "./Tweets.bs.js";
 
-let put = (id_str) =>
+const put = (id_str) =>
   fetch("/.netlify/functions/fauna", { method: "PUT", body: id_str });
 
 function mark(id_str) {
   console.log(`mark${id_str}`);
   Status.set("twitter GET");
-  let tweets = document.getElementById("tweets");
+  const tweets = document.getElementById("tweets");
   tweets.innerHTML = "";
-  let __x = Tweets.fetchAndShowTweets(id_str, tweets);
+  const __x = Tweets.fetchAndShowTweets(id_str, tweets);
   return __x.then(() => {
     Status.set("fauna PUT");
-    let __x = put(id_str);
+    const __x = put(id_str);
     return __x.then((faunaResp) => {
-      let __x = faunaResp.text();
+      const __x = faunaResp.text();
       return __x.then((text) =>
         Promise.resolve(
           Status.set(faunaResp.ok ? "fauna PUT OK" : `fauna PUT error: ${text}`)
