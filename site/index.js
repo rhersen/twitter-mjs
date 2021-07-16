@@ -3,23 +3,20 @@ import setStatus from "./setStatus.js";
 import mark from "./mark.js";
 
 setStatus("fauna GET");
-fetch(`/.netlify/functions/fauna`).then((faunaResp) => {
+fetch(`/.netlify/functions/fauna`).then(async (faunaResp) => {
   if (!faunaResp.ok) {
-    faunaResp.text().then((text) => {
-      setStatus(`fauna GET error: ${text}`);
-    });
-  } else
-    faunaResp.json().then(({ id_str }) => {
-      setStatus("twitter GET");
-      fetchAndShowTweets(id_str, document.getElementById("tweets")).then(
-        () => {
-          console.log("done");
-        },
-        () => {
-          console.log("fail");
-        }
-      );
-    });
+    const text = await faunaResp.text();
+    setStatus(`fauna GET error: ${text}`);
+  } else {
+    const { id_str } = await faunaResp.json();
+    setStatus("twitter GET");
+    try {
+      await fetchAndShowTweets(id_str, document.getElementById("tweets"));
+      console.log("done");
+    } catch (e) {
+      console.log("fail");
+    }
+  }
 });
 
 window.mark = mark;

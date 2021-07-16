@@ -2,7 +2,7 @@ import renderTweet from "./renderTweet.js";
 import getUsers from "./getUsers.js";
 import setStatus from "./setStatus.js";
 
-export default (id_str, tweets) => {
+export default async (id_str, tweets) => {
   const since = (s) => fetch(`/.netlify/functions/twitter?since_id=${s}`);
   const handleJson = function (tweetJson) {
     const users = getUsers(tweetJson);
@@ -29,14 +29,15 @@ export default (id_str, tweets) => {
     );
     return Promise.resolve(setStatus("twitter GET OK"));
   };
-  const handleFetch = function (tweetResp) {
+  const handleFetch = async function (tweetResp) {
     if (tweetResp.ok) {
       setStatus("insertAdjacentHTML");
-      return tweetResp.json().then(handleJson);
+      const tweetJson = await tweetResp.json();
+      return handleJson(tweetJson);
     }
-    return tweetResp
-      .text()
-      .then((s) => Promise.resolve(setStatus(`twitter GET error: ${s}`)));
+    const s = await tweetResp.text();
+    setStatus(`twitter GET error: ${s}`)
   };
-  return since(id_str).then(handleFetch);
+  const tweetResp = await since(id_str);
+  return handleFetch(tweetResp);
 };
