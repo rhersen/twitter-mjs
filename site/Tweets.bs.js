@@ -1,6 +1,6 @@
 import * as Tweet from "./Tweet.bs.js";
 import * as Users from "./Users.bs.js";
-import * as Status from "./Status.bs.js";
+import setStatus from "./setStatus.js";
 
 function fetchAndShowTweets(id_str, tweets) {
   const since = (s) => fetch(`/.netlify/functions/twitter?since_id=${s}`);
@@ -27,16 +27,16 @@ function fetchAndShowTweets(id_str, tweets) {
         })
         .join("")}</table>`
     );
-    return Promise.resolve(Status.set("twitter GET OK"));
+    return Promise.resolve(setStatus("twitter GET OK"));
   };
   const handleFetch = function (tweetResp) {
     if (tweetResp.ok) {
-      Status.set("insertAdjacentHTML");
+      setStatus("insertAdjacentHTML");
       return tweetResp.json().then(handleJson);
     }
     return tweetResp
       .text()
-      .then((s) => Promise.resolve(Status.set(`twitter GET error: ${s}`)));
+      .then((s) => Promise.resolve(setStatus(`twitter GET error: ${s}`)));
   };
   return since(id_str).then(handleFetch);
 }

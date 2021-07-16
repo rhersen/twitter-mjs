@@ -1,4 +1,4 @@
-import * as Status from "./Status.bs.js";
+import setStatus from "./setStatus.js";
 import * as Tweets from "./Tweets.bs.js";
 
 const put = (id_str) =>
@@ -6,17 +6,17 @@ const put = (id_str) =>
 
 function mark(id_str) {
   console.log(`mark${id_str}`);
-  Status.set("twitter GET");
+  setStatus("twitter GET");
   const tweets = document.getElementById("tweets");
   tweets.innerHTML = "";
   return Tweets.fetchAndShowTweets(id_str, tweets).then(() => {
-    Status.set("fauna PUT");
+    setStatus("fauna PUT");
     return put(id_str).then((faunaResp) =>
       faunaResp
         .text()
         .then((text) =>
           Promise.resolve(
-            Status.set(
+            setStatus(
               faunaResp.ok ? "fauna PUT OK" : `fauna PUT error: ${text}`
             )
           )

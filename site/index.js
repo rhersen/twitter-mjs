@@ -1,5 +1,5 @@
 import { fetchAndShowTweets } from "./Tweets.bs.js";
-import { set as setStatus } from "./Status.bs.js";
+import setStatus from "./setStatus.js";
 import { mark } from "./Mark.bs.js";
 
 setStatus("fauna GET");
