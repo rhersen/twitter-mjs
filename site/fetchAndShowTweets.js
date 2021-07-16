@@ -2,7 +2,7 @@ import * as Tweet from "./Tweet.bs.js";
 import getUsers from "./getUsers.js";
 import setStatus from "./setStatus.js";
 
-function fetchAndShowTweets(id_str, tweets) {
+export default (id_str, tweets) => {
   const since = (s) => fetch(`/.netlify/functions/twitter?since_id=${s}`);
   const handleJson = function (tweetJson) {
     const users = getUsers(tweetJson);
@@ -39,6 +39,4 @@ function fetchAndShowTweets(id_str, tweets) {
       .then((s) => Promise.resolve(setStatus(`twitter GET error: ${s}`)));
   };
   return since(id_str).then(handleFetch);
-}
-
-export { fetchAndShowTweets };
+};

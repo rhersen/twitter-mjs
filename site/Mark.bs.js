@@ -1,5 +1,5 @@
 import setStatus from "./setStatus.js";
-import * as Tweets from "./Tweets.bs.js";
+import fetchAndShowTweets from "./fetchAndShowTweets.js";
 
 const put = (id_str) =>
   fetch("/.netlify/functions/fauna", { method: "PUT", body: id_str });
@@ -9,7 +9,7 @@ function mark(id_str) {
   setStatus("twitter GET");
   const tweets = document.getElementById("tweets");
   tweets.innerHTML = "";
-  return Tweets.fetchAndShowTweets(id_str, tweets).then(() => {
+  return fetchAndShowTweets(id_str, tweets).then(() => {
     setStatus("fauna PUT");
     return put(id_str).then((faunaResp) =>
       faunaResp

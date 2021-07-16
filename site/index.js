@@ -1,4 +1,4 @@
-import { fetchAndShowTweets } from "./Tweets.bs.js";
+import fetchAndShowTweets from "./fetchAndShowTweets.js";
 import setStatus from "./setStatus.js";
 import { mark } from "./Mark.bs.js";
 
