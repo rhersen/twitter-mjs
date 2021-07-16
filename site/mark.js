@@ -12,6 +12,7 @@ export default async function mark(id_str) {
   await fetchAndShowTweets(id_str, tweets);
   setStatus("fauna PUT");
   const faunaResp = await put(id_str);
-  const text = await faunaResp.text();
-  setStatus(faunaResp.ok ? "fauna PUT OK" : `fauna PUT error: ${text}`);
+  setStatus(
+    faunaResp.ok ? "fauna PUT OK" : `fauna PUT error: ${await faunaResp.text()}`
+  );
 }

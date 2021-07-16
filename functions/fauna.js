@@ -7,12 +7,12 @@ const faunaClient = new faunadb.Client({
   secret: process.env.FAUNADB_SECRET
 });
 
-async function lastRead() {
-  return await faunaClient.query(q.Get(q.Match(q.Index("all_last_read"))));
+function lastRead() {
+  return faunaClient.query(q.Get(q.Match(q.Index("all_last_read"))));
 }
 
-async function mark(ref, id_str) {
-  return await faunaClient.query(q.Replace(ref, { data: { id_str } }));
+function mark(ref, id_str) {
+  return faunaClient.query(q.Replace(ref, { data: { id_str } }));
 }
 
 exports.handler = async function ({ httpMethod, body }) {
@@ -31,9 +31,9 @@ exports.handler = async function ({ httpMethod, body }) {
     }
 
     if (httpMethod === "PUT") {
-      const db = await lastRead();
-      const newVar = await mark(db.ref, body);
-      console.log("mark", newVar);
+      const { ref } = await lastRead();
+      const { ts } = await mark(ref, body);
+      console.log("PUT ok at", Date(ts));
       return {
         statusCode: 200,
         body: "ok"

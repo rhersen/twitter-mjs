@@ -5,8 +5,7 @@ import mark from "./mark.js";
 setStatus("fauna GET");
 fetch(`/.netlify/functions/fauna`).then(async (faunaResp) => {
   if (!faunaResp.ok) {
-    const text = await faunaResp.text();
-    setStatus(`fauna GET error: ${text}`);
+    setStatus(`fauna GET error: ${await faunaResp.text()}`);
   } else {
     const { id_str } = await faunaResp.json();
     setStatus("twitter GET");

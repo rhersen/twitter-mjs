@@ -3,8 +3,7 @@ import getUsers from "./getUsers.js";
 import setStatus from "./setStatus.js";
 
 export default async (id_str, tweets) => {
-  const tweetResp = await since(id_str);
-  return handleFetch(tweetResp);
+  return handleFetch(await since(id_str));
 
   function since(s) {
     return fetch(`/.netlify/functions/twitter?since_id=${s}`);
@@ -41,10 +40,8 @@ export default async (id_str, tweets) => {
   async function handleFetch(tweetResp) {
     if (tweetResp.ok) {
       setStatus("insertAdjacentHTML");
-      const tweetJson = await tweetResp.json();
-      return handleJson(tweetJson);
+      return handleJson(await tweetResp.json());
     }
-    const s = await tweetResp.text();
-    setStatus(`twitter GET error: ${s}`);
+    setStatus(`twitter GET error: ${await tweetResp.text()}`);
   }
 };
