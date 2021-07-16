@@ -9,18 +9,19 @@ function mark(id_str) {
   Status.set("twitter GET");
   const tweets = document.getElementById("tweets");
   tweets.innerHTML = "";
-  const __x = Tweets.fetchAndShowTweets(id_str, tweets);
-  return __x.then(() => {
+  return Tweets.fetchAndShowTweets(id_str, tweets).then(() => {
     Status.set("fauna PUT");
-    const __x = put(id_str);
-    return __x.then((faunaResp) => {
-      const __x = faunaResp.text();
-      return __x.then((text) =>
-        Promise.resolve(
-          Status.set(faunaResp.ok ? "fauna PUT OK" : `fauna PUT error: ${text}`)
+    return put(id_str).then((faunaResp) =>
+      faunaResp
+        .text()
+        .then((text) =>
+          Promise.resolve(
+            Status.set(
+              faunaResp.ok ? "fauna PUT OK" : `fauna PUT error: ${text}`
+            )
+          )
         )
-      );
-    });
+    );
   });
 }
 

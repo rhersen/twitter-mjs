@@ -32,16 +32,13 @@ function fetchAndShowTweets(id_str, tweets) {
   const handleFetch = function (tweetResp) {
     if (tweetResp.ok) {
       Status.set("insertAdjacentHTML");
-      const __x = tweetResp.json();
-      return __x.then(handleJson);
+      return tweetResp.json().then(handleJson);
     }
-    const __x$1 = tweetResp.text();
-    return __x$1.then((s) =>
-      Promise.resolve(Status.set(`twitter GET error: ${s}`))
-    );
+    return tweetResp
+      .text()
+      .then((s) => Promise.resolve(Status.set(`twitter GET error: ${s}`)));
   };
-  const __x = since(id_str);
-  return __x.then(handleFetch);
+  return since(id_str).then(handleFetch);
 }
 
 export { fetchAndShowTweets };
