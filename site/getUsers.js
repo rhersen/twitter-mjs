@@ -1,4 +1,4 @@
-function getUsers(tweets) {
+export default (tweets) => {
   const users = {};
   const screenNames = tweets.map((tweet) => tweet.user.screen_name);
   screenNames.forEach((screenName) => {
@@ -9,6 +9,4 @@ function getUsers(tweets) {
     users[screenName] = (count + 1) | 0;
   });
   return users;
-}
-
-export { getUsers };
+};

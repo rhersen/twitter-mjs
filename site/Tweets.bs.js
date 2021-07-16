@@ -1,11 +1,11 @@
 import * as Tweet from "./Tweet.bs.js";
-import * as Users from "./Users.bs.js";
+import getUsers from "./getUsers.js";
 import setStatus from "./setStatus.js";
 
 function fetchAndShowTweets(id_str, tweets) {
   const since = (s) => fetch(`/.netlify/functions/twitter?since_id=${s}`);
   const handleJson = function (tweetJson) {
-    const users = Users.getUsers(tweetJson);
+    const users = getUsers(tweetJson);
     const renderTweets = function (tweet, i) {
       tweets.insertAdjacentHTML("afterbegin", Tweet.renderTweet(tweet));
       return tweets.insertAdjacentHTML(
