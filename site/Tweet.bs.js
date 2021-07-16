@@ -30,21 +30,18 @@ function renderTweet(tweet) {
       } else {
         millis = 0;
       }
-      let duration = "" + millis + " ms";
-      return '<a href="' + best.url + '">' + duration + "</a>";
+      let duration = `${millis} ms`;
+      return `<a href="${best.url}">${duration}</a>`;
     };
     let getImage = function (image) {
       let size = image.sizes.small;
       let width = size.w / 2;
       let height = size.h / 2;
-      let small = image.media_url + ":small";
-      let large = image.media_url + ":large";
-      let img =
-        '<img src="' +
-        small +
-        ('" width="' + width + '" height="' + height + '" />');
+      let small = `${image.media_url}:small`;
+      let large = `${image.media_url}:large`;
+      let img = `<img src="${small}" width="${width}" height="${height}" />`;
       let duration = getVideoLink(image.video_info);
-      return '<a href="' + large + '">' + img + "</a>" + duration;
+      return `<a href="${large}">${img}</a>${duration}`;
     };
     let match = d.extended_entities;
     if (match !== undefined) {
@@ -62,7 +59,7 @@ function renderTweet(tweet) {
   };
   let getRetweeter = function (retweet, d) {
     if (retweet !== undefined) {
-      return " <i>" + d.user.screen_name + "</i> ";
+      return ` <i>${d.user.screen_name}</i> `;
     } else {
       return " ";
     }
@@ -74,7 +71,7 @@ function renderTweet(tweet) {
     let replaceUrlWithLink = function (text, url) {
       return text.replace(
         url.url,
-        '<a href="' + url.url + '" target="_blank">' + url.display_url + "</a>"
+        `<a href="${url.url}" target="_blank">${url.display_url}</a>`
       );
     };
     let data = retweetStatus !== undefined ? retweetStatus : tweetStatus;
@@ -83,7 +80,7 @@ function renderTweet(tweet) {
   let getQuote = function (d) {
     let quotedStatus = d.quoted_status;
     if (quotedStatus !== undefined) {
-      return '<div class="quoted">' + fullText(quotedStatus) + "</div>";
+      return `<div class="quoted">${fullText(quotedStatus)}</div>`;
     } else {
       return "";
     }
@@ -93,20 +90,13 @@ function renderTweet(tweet) {
   let user = getUser(retweet, tweet);
   let t = retweet !== undefined ? retweet : tweet;
   let image = getImages(t);
-  let a =
-    '<a href="https://twitter.com/' +
-    user +
-    "/status/" +
-    tweet.id_str +
-    '""" target="_blank">' +
-    time +
-    "</a>";
+  let a = `<a href="https://twitter.com/${user}/status/${tweet.id_str}""" target="_blank">${time}</a>`;
   let i = getRetweeter(retweet, tweet);
-  let b = "<b>" + user + "</b>";
+  let b = `<b>${user}</b>`;
   let text = getText(retweet, tweet);
-  let images = "<div>" + image + "</div>";
+  let images = `<div>${image}</div>`;
   let quote = getQuote(t);
-  return "<li>" + a + i + b + " " + text + " " + quote + " " + images + "</li>";
+  return `<li>${a}${i}${b} ${text} ${quote} ${images}</li>`;
 }
 
 export { renderTweet };

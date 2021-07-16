@@ -5,7 +5,7 @@ let put = (id_str) =>
   fetch("/.netlify/functions/fauna", { method: "PUT", body: id_str });
 
 function mark(id_str) {
-  console.log("mark" + id_str);
+  console.log(`mark${id_str}`);
   Status.set("twitter GET");
   let tweets = document.getElementById("tweets");
   tweets.innerHTML = "";
@@ -17,7 +17,7 @@ function mark(id_str) {
       let __x = faunaResp.text();
       return __x.then(function (text) {
         return Promise.resolve(
-          Status.set(faunaResp.ok ? "fauna PUT OK" : "fauna PUT error: " + text)
+          Status.set(faunaResp.ok ? "fauna PUT OK" : `fauna PUT error: ${text}`)
         );
       });
     });
