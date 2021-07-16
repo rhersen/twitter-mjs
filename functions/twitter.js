@@ -1,13 +1,13 @@
-const Twitter = require("twitter")
+const Twitter = require("twitter");
 
 const client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   access_token_key: process.env.TWITTER_TOKEN_KEY,
   access_token_secret: process.env.TWITTER_TOKEN_SECRET
-})
+});
 
-exports.handler = function({ queryStringParameters }, context, callback) {
+exports.handler = function ({ queryStringParameters }, context, callback) {
   client.get(
     "statuses/home_timeline",
     {
@@ -18,10 +18,10 @@ exports.handler = function({ queryStringParameters }, context, callback) {
       count: "200"
     },
     (error, data) => {
-      callback(error && error.map(e => e.message), {
+      callback(error && error.map((e) => e.message), {
         statusCode: 200,
         body: JSON.stringify(data)
-      })
+      });
     }
-  )
-}
+  );
+};

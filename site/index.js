@@ -1,25 +1,25 @@
-import { fetchAndShowTweets } from "./Tweets.bs.js"
-import { set as setStatus } from "./Status.bs.js"
-import { mark } from "./Mark.bs.js"
+import { fetchAndShowTweets } from "./Tweets.bs.js";
+import { set as setStatus } from "./Status.bs.js";
+import { mark } from "./Mark.bs.js";
 
-setStatus("fauna GET")
-fetch(`/.netlify/functions/fauna`).then(faunaResp => {
+setStatus("fauna GET");
+fetch(`/.netlify/functions/fauna`).then((faunaResp) => {
   if (!faunaResp.ok) {
-    faunaResp.text().then(text => {
-      setStatus(`fauna GET error: ${text}`)
-    })
+    faunaResp.text().then((text) => {
+      setStatus(`fauna GET error: ${text}`);
+    });
   } else
     faunaResp.json().then(({ id_str }) => {
-      setStatus("twitter GET")
+      setStatus("twitter GET");
       fetchAndShowTweets(id_str, document.getElementById("tweets")).then(
         () => {
-          console.log("done")
+          console.log("done");
         },
         () => {
-          console.log("fail")
+          console.log("fail");
         }
-      )
-    })
-})
+      );
+    });
+});
 
-window.mark = mark
+window.mark = mark;

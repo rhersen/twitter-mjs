@@ -3,7 +3,8 @@
 import * as Status from "./Status.bs.js";
 import * as Tweets from "./Tweets.bs.js";
 
-var put = (id_str => fetch("/.netlify/functions/fauna", { method: "PUT", body: id_str }));
+var put = (id_str) =>
+  fetch("/.netlify/functions/fauna", { method: "PUT", body: id_str });
 
 function mark(id_str) {
   console.log("mark" + id_str);
@@ -12,20 +13,18 @@ function mark(id_str) {
   tweets.innerHTML = "";
   var __x = Tweets.fetchAndShowTweets(id_str, tweets);
   return __x.then(function (param) {
-              Status.set("fauna PUT");
-              var __x = put(id_str);
-              return __x.then(function (faunaResp) {
-                          var __x = faunaResp.text();
-                          return __x.then(function (text) {
-                                      return Promise.resolve(Status.set(faunaResp.ok ? "fauna PUT OK" : "fauna PUT error: " + text));
-                                    });
-                        });
-            });
+    Status.set("fauna PUT");
+    var __x = put(id_str);
+    return __x.then(function (faunaResp) {
+      var __x = faunaResp.text();
+      return __x.then(function (text) {
+        return Promise.resolve(
+          Status.set(faunaResp.ok ? "fauna PUT OK" : "fauna PUT error: " + text)
+        );
+      });
+    });
+  });
 }
 
-export {
-  put ,
-  mark ,
-  
-}
+export { put, mark };
 /* No side effect */
