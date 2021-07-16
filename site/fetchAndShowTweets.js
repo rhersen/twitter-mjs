@@ -26,7 +26,7 @@ export default async (id_str, tweets) => {
         })
         .join("")}</table>`
     );
-    return Promise.resolve(setStatus("twitter GET OK"));
+    return setStatus("twitter GET OK");
 
     function renderTweets(tweet, i) {
       tweets.insertAdjacentHTML("afterbegin", renderTweet(tweet));
