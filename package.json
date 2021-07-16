@@ -5,7 +5,7 @@
   "main": "site/index.html",
   "scripts": {
     "test": "prettier --check .",
-    "build": "echo \"Just deploy 'site'\" && exit 0",
+    "build": "npm run test",
     "dev": "netlify dev"
   },
   "author": "",
